@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style type="text/css">
+		@import url('https://fonts.googleapis.com/css?family=Cabin');
+
+		* { box-sizing: border-box }
+
+		body {
+    		    font-family: 'Cabin', serif;
+		    color: white;
+		    padding: 0;
+		    margin: 0;
+		    background: linear-gradient(-45deg, #2177a0, #57a57d);
+		}
+
+		form {
+		    max-width: 500px;
+		    margin: 50px auto;
+		    padding: 20px;
+		}
+
+		legend {
+		    text-shadow: 0px 2px 1px rgba(0,0,0,0.2);
+		    width: 100%;
+		    font-size: 22px;
+		    margin-bottom: 20px;
+		    padding-bottom: 10px;
+		    border-bottom: 1px solid rgba(0,0,0,0.2);
+		}
+
+		input,
+		textarea {
+		    font-size: 18px;
+		    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.2), 0px 1px 1px rgba(255,255,255,0.3);
+		    border-radius: 3px;
+		    width: 100%;
+		    display: block;
+		    padding: 15px;
+		    margin-bottom: 15px;
+		    border: 1px solid rgba(0,0,0,0.2);
+		    background: rgba(0,0,0,0.2);
+		    transition: all 0.2s ease;
+		    color: white;
+		}
+
+		input[type="submit"] {
+		    background: #166387;
+		    border: 1px solid #044C6E;
+		    box-shadow: inset 0px 1px 0px rgba(255,255,255,0.2), 0px 4px 0px rgba(6,82,117,1);
+		}
+
+		input[type="radio"],
+		input[type="checkbox"]{
+		    width: auto;
+		    display: inline;
+		}
+
+		input:focus,
+		textarea:focus {
+		    box-shadow: 0px 0px 5px rgba(255,255,255,0.3);
+		    border: 1px solid white;
+		    background: rgba(0,0,0,0.1);
+		}
+
+		label {
+		    border-bottom: 1px solid rgba(255,255,255,0.2);
+		    display: block;
+		    margin-bottom: 5px;
+		    text-transform: uppercase;
+		    font-size: 14px;
+		    letter-spacing: 1px;
+		    text-shadow: 0px 2px 1px rgba(0,0,0,0.2);
+		}
+
+		select {
+		    height: auto;
+		    margin: 0;
+		    background: none;
+		    width: 100%;
+		    color: white;
+		    font-size: 18px;
+		    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.2), 0px 1px 1px rgba(255,255,255,0.3);
+		    border-radius: 3px;
+		    width: 100%;
+		    display: block;
+		    padding: 15px;
+		    margin-bottom: 15px;
+		    border: 1px solid rgba(0,0,0,0.2);
+		    background: rgba(0,0,0,0.2);
+		    transition: all 0.2s ease;
+		    color: white;
+		}
+	</style>
+	<script>
+        function manage() {
+        var bt = document.getElementById('sub');
+            bt.disabled = true;
+        }
+		function cal(){
+            if(document.getElementById("ED")){
+            GetDays();
+            }
+        }
+         function GetDays(){
+             var dropdt = new Date(document.getElementById("ED").value);
+             var pickdt = new Date(document.getElementById("SD").value);
+             var days= parseInt((dropdt - pickdt) / (24 * 3600 * 1000));
+             if(days<0)
+             {
+             alert("Select an ending date which is greater than start date");
+             manage();
+             }
+             else
+             {
+             var bt = document.getElementById('sub');
+              bt.disabled = false;
+         }
+         }
+	</script>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+    {{message}}
+    <form action="display" method="GET">
+    <legend class="section_title">Trainer Form</legend>
+    <label>Trainer Name</label>
+    <select name="trName" required>
+        <option value="" selected disabled hidden>Choose Trainer Name</option>
+            {% for i in trName %}
+            <option value={{i}}>{{i}}</option>
+            {% endfor %}
+	</select>
+    <label>College Name</label>
+    <select name="colName" required>
+        <option value="" selected disabled hidden>Choose College Name</option>
+            {% for i in colName %}
+                <option value={{i}}>{{i}}</option>
+            {% endfor %}
+    </select>
+    <label>Domain</label>
+    <input  type="text" name="dom" required>
+    <label>Start Date:</label><input type="date"  id="SD" name="SD" onchange="cal()" required/></div>
+    <label>End Date:</label><input type="date"  id="ED" name="ED" onchange="cal()" required/></div>
+	<label>Number Of Hours</label>
+    <input type="text" name="TH" required>
+    <label>Mode</label>
+    <label><input type="radio" name="mode" value="online"> Online</label>
+    <label><input type="radio" name="mode" checked value="offline"> Offline</label>
+    <input type="submit" id="sub">
+    </form>
+{{res}}
+{% endblock %}
+</body>
+</html>

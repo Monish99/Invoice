@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script>
+        function validate(d)
+        {
+        if(d<=0)
+        return false;
+        else
+        return true;
+        }
+        function cal(){
+            if(document.getElementById("ED")){
+             var d=document.getElementById("Day").value=GetDays();
+             validate(d);
+            }
+        }
+         function GetDays(){
+             var dropdt = new Date(document.getElementById("ED").value);
+             var pickdt = new Date(document.getElementById("SD").value);
+             var days= parseInt((dropdt - pickdt) / (24 * 3600 * 1000));
+             if(days<=0)
+             alert("Select a valid ending date");
+             else
+             return days;
+         }
+    </script>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+                <div class="card-body">
+                    <h2 class="title">Genesis Trainer Form</h2>
+                    <form action="display" method="GET" name="someForm" onsubmit="return validate()">
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Trainer Name</label>
+                                    <div class="rs-select2 js-select-simple select--no-search">
+                                            <select name="trName" required>
+                                                <option value="" selected disabled hidden>Choose College Name</option>
+                                                {% for i in trName %}
+                                                <option value={{i}}>{{i}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        <div class="select-dropdown"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">College Name</label>
+                                    <div class="rs-select2 js-select-simple select--no-search">
+                                            <select name="colName" required>
+                                                <option value="" selected disabled hidden>Choose College Name</option>
+                                                {% for i in colName %}
+                                                    <option value={{i}}>{{i}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        <div class="select-dropdown"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Start Date</label>
+                                    <div class="input-group-icon">
+                                        <input class="input--style-4 js-datepicker" type="text" name="SD" id="SD" onchange="cal()" required>
+                                        <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">End Date</label>
+                                    <div class="input-group-icon">
+                                        <input class="input--style-4 js-datepicker" type="text" name="ED" id="ED" onchange="cal()" required>
+                                        <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Domain</label>
+                                    <input class="input--style-4" type="text" name="dom">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">No Of days</label>
+                                    <input class="input--style-4" type="number" name="Day" id="Day" placeholder="Enter no of Days" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Number of Hours</label>
+                                    <input class="input--style-4" type="text" name="TH" placeholder="Enter Total hours" required>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Mode</label>
+                                    <div class="p-t-10">
+                                        <label class="radio-container m-r-45">Online
+                                            <input type="radio" name="mode" value="online">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="radio-container">Offline
+                                            <input type="radio" name="mode" value="offline">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="p-t-15">
+                                <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{{res}}
+{% endblock %}
+</body>
+</html>
