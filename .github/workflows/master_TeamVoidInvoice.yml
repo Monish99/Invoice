@@ -59,4 +59,4 @@ jobs:
         with:
           app-name: 'TeamVoidInvoice'
           slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_e4213c0b572c487d9a229ec4c93d29c9 }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_9896d19d7d17400e9e353121ca60d251 }}
